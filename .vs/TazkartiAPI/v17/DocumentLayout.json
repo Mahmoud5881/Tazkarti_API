@@ -1,0 +1,58 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Backend\\TazkartiAPI\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B930B83E-CEDD-40CF-8859-67587A65555F}|Tazkarti.API\\Tazkarti.API.csproj|d:\\backend\\tazkartiapi\\tazkarti.api\\tazkarti.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{B930B83E-CEDD-40CF-8859-67587A65555F}|Tazkarti.API\\Tazkarti.API.csproj|solutionrelative:tazkarti.api\\tazkarti.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B930B83E-CEDD-40CF-8859-67587A65555F}|Tazkarti.API\\Tazkarti.API.csproj|d:\\backend\\tazkartiapi\\tazkarti.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B930B83E-CEDD-40CF-8859-67587A65555F}|Tazkarti.API\\Tazkarti.API.csproj|solutionrelative:tazkarti.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Tazkarti.API",
+              "DocumentMoniker": "D:\\Backend\\TazkartiAPI\\Tazkarti.API\\Tazkarti.API.csproj",
+              "RelativeDocumentMoniker": "Tazkarti.API\\Tazkarti.API.csproj",
+              "ToolTip": "D:\\Backend\\TazkartiAPI\\Tazkarti.API\\Tazkarti.API.csproj",
+              "RelativeToolTip": "Tazkarti.API\\Tazkarti.API.csproj",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-09-06T20:36:05.384Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Backend\\TazkartiAPI\\Tazkarti.API\\Program.cs",
+              "RelativeDocumentMoniker": "Tazkarti.API\\Program.cs",
+              "ToolTip": "D:\\Backend\\TazkartiAPI\\Tazkarti.API\\Program.cs",
+              "RelativeToolTip": "Tazkarti.API\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-06T20:35:46.949Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
