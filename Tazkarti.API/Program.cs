@@ -32,6 +32,7 @@ public class Program
             builder.Services.AddScoped<IEventService,EventService>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<IMatchService, MatchService>();
+            builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddAutoMapper(cfg => { }, typeof(MappingProfile).Assembly);
             
             #endregion
