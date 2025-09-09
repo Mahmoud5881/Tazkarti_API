@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Tazkarti.API.DTOs;
+using Tazkarti.API.Helpers;
 using Tazkarti.Core.Models;
 using Tazkarti.Service.ServiceInterfaces;
 
@@ -22,12 +23,17 @@ public class MatchController : ControllerBase
     }
     
     [HttpGet]
-    public async Task<IActionResult> GetAllMatches()
+    [ResponseCache(Duration = 60 * 5)]
+    public async Task<IActionResult> GetAllMatches([FromQuery] int pageIndex = 1, [FromQuery] int pageSize = 10)
     {
         var allMatches = await matchService.GetAllMatchesAsync();
-        var matches = mapper.Map<IEnumerable<Match>,IEnumerable<MatchToReturnDTO>>(allMatches);
-        if(matches != null && matches.Any())
-            return Ok(matches);
+        if (allMatches != null && allMatches.Any())
+        {
+            var matches = mapper.Map<IEnumerable<Match>,IEnumerable<MatchToReturnDTO>>(allMatches);
+            var count = allMatches.Count();
+            return Ok(new Pagination<MatchToReturnDTO>(pageIndex, pageSize, count, matches));
+        }
+
         return NotFound("No data to display");
     }
     

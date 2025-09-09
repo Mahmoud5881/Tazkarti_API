@@ -3,6 +3,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Tazkarti.API.DTOs;
+using Tazkarti.API.Helpers;
 using Tazkarti.Core.Models;
 using Tazkarti.Service.ServiceInterfaces;
 using Tazkarti.Service.Services;
@@ -24,22 +25,32 @@ public class EventController : ControllerBase
     }
     
     [HttpGet("Categories")]
-    public async Task<IActionResult> GetAllCategories()
+    [ResponseCache(Duration = 60 * 5)]
+    public async Task<IActionResult> GetAllCategories([FromQuery] int pageIndex = 1, [FromQuery] int pageSize = 10)
     {
         var allCategories = await categoryService.GetAllCategoriesAsync();
-        var categories = mapper.Map<IEnumerable<Category>,IEnumerable<CategoryToReturnDTO>>(allCategories);
-        if(categories != null && categories.Any())
-            return Ok(categories);
+        if (allCategories != null && allCategories.Any())
+        {
+            var categories = mapper.Map<IEnumerable<Category>, IEnumerable<CategoryToReturnDTO>>(allCategories);
+            var count = allCategories.Count();
+            return Ok(new Pagination<CategoryToReturnDTO>(pageIndex, pageSize, count, categories));
+        }
+        
         return NotFound("No data to display");
     }
 
     [HttpGet("Category/{id}")]
-    public async Task<IActionResult> GetEventsByCategory(int categoryId)
+    [ResponseCache(Duration = 60 * 5)]
+    public async Task<IActionResult> GetEventsByCategory(int categoryId, [FromQuery] int pageIndex = 1, [FromQuery] int pageSize = 10)
     {
         var allEvents = await eventService.GetAllEventsByCategoryAsync(categoryId);
-        var events = mapper.Map<IEnumerable<Event>, IEnumerable<EventToReturnDTO>>(allEvents);
-        if(events != null && events.Any())
-            return Ok(events);
+        if (allEvents != null && allEvents.Any())
+        {
+            var events = mapper.Map<IEnumerable<Event>, IEnumerable<EventToReturnDTO>>(allEvents);
+            var count = allEvents.Count();
+            return Ok(new Pagination<EventToReturnDTO>(pageIndex, pageSize, count, events));
+        }
+
         return NotFound("No data to display");
     }
 

@@ -19,7 +19,7 @@ namespace Tazkarti.API.Controllers
         }
         
         [HttpGet]
-        public async Task<IActionResult> BuyTicketForEvent(int EventId)
+        public async Task<IActionResult> GetTicketForEvent(int EventId)
         {
             var Event = await eventService.GetEventWithTicketsAsync(EventId);
             if (Event == null)
