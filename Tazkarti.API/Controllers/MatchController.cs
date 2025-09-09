@@ -26,7 +26,7 @@ public class MatchController : ControllerBase
     [ResponseCache(Duration = 60 * 5)]
     public async Task<IActionResult> GetAllMatches([FromQuery] int pageIndex = 1, [FromQuery] int pageSize = 10)
     {
-        var allMatches = await matchService.GetAllMatchesAsync();
+        var allMatches = await matchService.GetMatchesWithPaginationAsync(pageIndex, pageSize);
         if (allMatches != null && allMatches.Any())
         {
             var matches = mapper.Map<IEnumerable<Match>,IEnumerable<MatchToReturnDTO>>(allMatches);

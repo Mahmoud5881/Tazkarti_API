@@ -11,4 +11,6 @@ public interface ICategoryService
     Task<bool> DeleteCategoryAsync(int id);
     
     void UpdateCategory(Category category);
+    
+    Task<List<Category>> GetCategoriesWithPaginationAsync(int pageIndex, int pageSize);
 }

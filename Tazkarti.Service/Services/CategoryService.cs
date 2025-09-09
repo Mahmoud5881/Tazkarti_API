@@ -35,4 +35,10 @@ public class CategoryService : ICategoryService
     
     public void UpdateCategory(Category updatedCategory) => 
         categoryRepository.Update(updatedCategory);
+
+    public async Task<List<Category>> GetCategoriesWithPaginationAsync(int pageIndex, int pageSize)
+    {
+        var categories = await categoryRepository.GetAllWithPaginationAsync(pageIndex, pageSize);
+        return categories.ToList();
+    }
 }

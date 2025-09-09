@@ -41,4 +41,10 @@ public class MatchService : IMatchService
 
     public async void UpdateMatch(Match match) =>
         repository.Update(match);
+
+    public async Task<List<Match>> GetMatchesWithPaginationAsync(int pageIndex, int pageSize)
+    {
+        var matches = await repository.GetAllWithPaginationAsync(pageIndex, pageSize);
+        return matches.ToList();
+    }
 }

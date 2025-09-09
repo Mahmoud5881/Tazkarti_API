@@ -14,4 +14,6 @@ public interface IEventService
     void updateEvent(Event updatedEvent);
     
     Task<Event> GetEventWithTicketsAsync(int id);
+    
+    Task<List<Event>> GetEventsWithPaginationAsync(int categoryId, int pageIndex, int pageSize);
 }

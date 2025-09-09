@@ -14,4 +14,6 @@ public interface IMatchService
     Task<bool> DeleteMatchAsync(int id);
     
     void UpdateMatch(Match match);
+    
+    Task<List<Match>> GetMatchesWithPaginationAsync(int pageIndex, int pageSize);
 }

@@ -53,4 +53,10 @@ public class EventService : IEventService
         var Event = await eventRepository.GetEventWithTickets(id);
         return Event;
     }
+
+    public async Task<List<Event>> GetEventsWithPaginationAsync(int categoryId, int pageIndex, int pageSize)
+    {
+        var events = await  GetAllEventsByCategoryAsync(categoryId);
+        return events.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+    }
 }

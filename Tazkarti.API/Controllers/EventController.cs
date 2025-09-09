@@ -28,7 +28,7 @@ public class EventController : ControllerBase
     [ResponseCache(Duration = 60 * 5)]
     public async Task<IActionResult> GetAllCategories([FromQuery] int pageIndex = 1, [FromQuery] int pageSize = 10)
     {
-        var allCategories = await categoryService.GetAllCategoriesAsync();
+        var allCategories = await categoryService.GetCategoriesWithPaginationAsync(pageIndex, pageSize);
         if (allCategories != null && allCategories.Any())
         {
             var categories = mapper.Map<IEnumerable<Category>, IEnumerable<CategoryToReturnDTO>>(allCategories);
@@ -43,7 +43,7 @@ public class EventController : ControllerBase
     [ResponseCache(Duration = 60 * 5)]
     public async Task<IActionResult> GetEventsByCategory(int categoryId, [FromQuery] int pageIndex = 1, [FromQuery] int pageSize = 10)
     {
-        var allEvents = await eventService.GetAllEventsByCategoryAsync(categoryId);
+        var allEvents = await eventService.GetEventsWithPaginationAsync(categoryId, pageIndex, pageSize);
         if (allEvents != null && allEvents.Any())
         {
             var events = mapper.Map<IEnumerable<Event>, IEnumerable<EventToReturnDTO>>(allEvents);

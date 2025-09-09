@@ -43,4 +43,10 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         await context.Set<T>().AddAsync(entity);
         await context.SaveChangesAsync();
     }
+
+    public async Task<IEnumerable<T>> GetAllWithPaginationAsync(int pageIndex, int pageSize)
+    {
+        var result = await GetAllAsync();
+        return result.Skip((pageIndex - 1) * pageSize).Take(pageSize);
+    }
 }

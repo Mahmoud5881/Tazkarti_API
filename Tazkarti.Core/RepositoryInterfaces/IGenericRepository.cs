@@ -11,4 +11,6 @@ public interface IGenericRepository<T> where T : class
     void Update(T entity);
     
     Task CreateAsync(T entity);
+    
+    Task<IEnumerable<T>> GetAllWithPaginationAsync(int pageIndex, int pageSize);
 }
