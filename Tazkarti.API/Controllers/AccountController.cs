@@ -52,5 +52,27 @@ namespace Tazkarti.API.Controllers
             }
             return BadRequest();
         }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(LoginDTO newUser)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await userManager.FindByNameAsync(newUser.Username);
+                if (user != null)
+                {
+                    var result = await userManager.CheckPasswordAsync(user, newUser.Password);
+                    if (result)
+                    {
+                        var token = await authService.CreateTokenAsync(user);
+                        return Ok(new {
+                            token = new JwtSecurityTokenHandler().WriteToken(token),
+                            expiration = token.ValidTo
+                        });
+                    }
+                }
+            }
+            return BadRequest(ModelState);
+        }
     }
 }

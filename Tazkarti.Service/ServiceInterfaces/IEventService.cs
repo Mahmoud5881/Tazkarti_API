@@ -12,4 +12,6 @@ public interface IEventService
     Task<bool> DeleteEventAsync(int id);
     
     void updateEvent(Event updatedEvent);
+    
+    Task<Event> GetEventWithTicketsAsync(int id);
 }

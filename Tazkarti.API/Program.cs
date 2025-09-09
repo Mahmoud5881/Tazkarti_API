@@ -1,3 +1,4 @@
+using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Tazkarti.Core.Models;
@@ -7,6 +8,8 @@ using Tazkarti.Repository.Repositories;
 using Tazkarti.Service.ServiceInterfaces;
 using Tazkarti.Service.Services;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Tazkarti.API.Helpers;
 
 namespace Tazkarti.API;
@@ -33,7 +36,29 @@ public class Program
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<IMatchService, MatchService>();
             builder.Services.AddScoped<IAuthService, AuthService>();
+            builder.Services.AddScoped<IEventRepository, EventRepository>();
+            builder.Services.AddScoped<IStripeService, StripeService>();
             builder.Services.AddAutoMapper(cfg => { }, typeof(MappingProfile).Assembly);
+            
+            builder.Services.AddAuthentication(configureOptions =>
+            {
+                configureOptions.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                configureOptions.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                configureOptions.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.SaveToken = true;
+                options.RequireHttpsMetadata = false;
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidIssuer = builder.Configuration["Jwt:ValidIssuer"],
+                    ValidateAudience = true,
+                    ValidAudience = builder.Configuration["Jwt:ValidAudience"],
+                    IssuerSigningKey =
+                        new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SecurityKey"]))
+                };
+            });
             
             #endregion
 

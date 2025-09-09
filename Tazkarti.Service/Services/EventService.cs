@@ -6,18 +6,20 @@ namespace Tazkarti.Service.Services;
 
 public class EventService : IEventService
 {
-    private readonly IGenericRepository<Event> eventRepository;
+    private readonly IGenericRepository<Event> repository;
     private readonly IGenericRepository<Category> categoryRepository;
+    private readonly IEventRepository eventRepository;
 
-    public EventService(IGenericRepository<Event> eventRepository, IGenericRepository<Category> categoryRepository)
+    public EventService(IGenericRepository<Event> repository, IGenericRepository<Category> categoryRepository, IEventRepository eventRepository)
     {
-        this.eventRepository = eventRepository;
+        this.repository = repository;
         this.categoryRepository = categoryRepository;
+        this.eventRepository = eventRepository;
     }
 
     public async Task<List<Event>> GetAllEventsByCategoryAsync(int categoryId)
     {
-        var events = await eventRepository.GetAllAsync();
+        var events = await repository.GetAllAsync();
         var categoryEvents = events.Where(e=>e.CategoryId == categoryId).ToList();
         return categoryEvents;
     }
@@ -27,7 +29,7 @@ public class EventService : IEventService
         var category = categoryRepository.GetByIdAsync(newEvent.CategoryId);
         if (newEvent != null && category != null)
         {
-            await eventRepository.CreateAsync(newEvent);
+            await repository.CreateAsync(newEvent);
             return true;
         }
         return false;
@@ -35,14 +37,20 @@ public class EventService : IEventService
 
     public async Task<bool> DeleteEventAsync(int id)
     {
-        var Event = await eventRepository.GetByIdAsync(id);
+        var Event = await repository.GetByIdAsync(id);
         if (Event != null)
         {
-            await eventRepository.DeleteAsync(id);
+            await repository.DeleteAsync(id);
             return true;
         }
         return false;
     }
 
-    public void updateEvent(Event newEvent)  => eventRepository.Update(newEvent);
+    public void updateEvent(Event newEvent)  => repository.Update(newEvent);
+
+    public async Task<Event> GetEventWithTicketsAsync(int id)
+    {
+        var Event = await eventRepository.GetEventWithTickets(id);
+        return Event;
+    }
 }

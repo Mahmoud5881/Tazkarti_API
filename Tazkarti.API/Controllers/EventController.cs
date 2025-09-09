@@ -51,8 +51,11 @@ public class EventController : ControllerBase
         {
             var Event = mapper.Map<EventDTO, Event>(newEvent);
             var result  = await eventService.addEventAsync(Event);
-            if(result)
-                return Created();
+            if (result)
+            {
+                var eventToReturn = mapper.Map<Event, EventToReturnDTO>(Event);
+                return Created("", eventToReturn);
+            }
         }
         return BadRequest(ModelState);
     }
