@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using Tazkarti.Repository.Data;
 
-namespace Tazkarti.Repository;
+namespace Tazkarti.Repository.Data;
 
 public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
 {

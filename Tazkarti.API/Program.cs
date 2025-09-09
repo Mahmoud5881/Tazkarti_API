@@ -10,6 +10,7 @@ using Tazkarti.Service.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Tazkarti.API.Filters;
 using Tazkarti.API.Helpers;
 
 namespace Tazkarti.API;
@@ -62,7 +63,8 @@ public class Program
             
             #endregion
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers(options =>
+                options.Filters.Add<GlobalExceptionFilter>());
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
