@@ -8,7 +8,7 @@ public interface IGenericRepository<T> where T : class
     
     Task DeleteAsync(int id);
     
-    void UpdateAsync(T entity);
+    void Update(T entity);
     
     Task CreateAsync(T entity);
 }

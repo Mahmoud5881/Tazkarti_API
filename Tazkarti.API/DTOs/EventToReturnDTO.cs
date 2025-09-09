@@ -1,10 +1,8 @@
 namespace Tazkarti.API.DTOs;
 
-public class EventDTO
+public class EventToReturnDTO
 {
     public string Name { get; set; }
-    
-    public int CategoryId { get; set; }
     
     public DateTime Date { get; set; }
     

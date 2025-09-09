@@ -30,7 +30,7 @@ namespace Tazkarti.API.Controllers
                 {
                     UserName = newUser.Username,
                     FirstName = newUser.FirstName,
-                    LastName = newUser.LastName,
+                    LastName = newUser.LastName,  
                     Email = newUser.Email,
                     PhoneNumber = newUser.PhoneNumber,
                     BirthDate = newUser.BirthDate,

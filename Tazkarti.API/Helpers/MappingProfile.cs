@@ -8,8 +8,8 @@ public class MappingProfile : Profile
 {
     public MappingProfile()
     {
-        CreateMap<Event, EventDTO>();
-        CreateMap<Category, CategoryDTO>();
-        CreateMap<Match, MatchDTO>();
+        CreateMap<Event, EventToReturnDTO>();
+        CreateMap<Category, CategoryToReturnDTO>();
+        CreateMap<Match, MatchToReturnDTO>();
     }
 }

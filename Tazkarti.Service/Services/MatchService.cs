@@ -24,4 +24,21 @@ public class MatchService : IMatchService
         var match = await repository.GetByIdAsync(id);
         return match;
     }
+
+    public async Task AddMatchAsync(Match match) =>
+        await repository.CreateAsync(match);
+
+    public async Task<bool> DeleteMatchAsync(int id)
+    {
+        Match match = await repository.GetByIdAsync(id);
+        if (match != null)
+        {
+            await repository.DeleteAsync(id);
+            return true;
+        }
+        return false;
+    }
+
+    public async void UpdateMatch(Match match) =>
+        repository.Update(match);
 }

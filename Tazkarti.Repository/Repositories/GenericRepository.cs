@@ -32,7 +32,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         await context.SaveChangesAsync();
     }
 
-    public void UpdateAsync(T entity)
+    public void Update(T entity)
     {
         context.Entry(entity).State = EntityState.Modified;
         context.SaveChanges();

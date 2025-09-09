@@ -1,5 +1,6 @@
 using System.Collections;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Tazkarti.API.DTOs;
@@ -24,7 +25,7 @@ public class MatchController : ControllerBase
     public async Task<IActionResult> GetAllMatches()
     {
         var allMatches = await matchService.GetAllMatchesAsync();
-        var matches = mapper.Map<IEnumerable<Match>,IEnumerable<MatchDTO>>(allMatches);
+        var matches = mapper.Map<IEnumerable<Match>,IEnumerable<MatchToReturnDTO>>(allMatches);
         if(matches != null && matches.Any())
             return Ok(matches);
         return NotFound("No data to display");
@@ -34,9 +35,46 @@ public class MatchController : ControllerBase
     public async Task<IActionResult> GetMatchById(int id)
     {
         var result = await matchService.GetMatchByIdAsync(id);
-        var match = mapper.Map<Match,MatchDTO>(result);
+        var match = mapper.Map<Match,MatchToReturnDTO>(result);
         if(match != null)
             return Ok(match);
         return NotFound("No data to display");
+    }
+
+    [HttpPost]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> PostMatch(MatchDTO newMatch)
+    {
+        if (ModelState.IsValid)
+        {
+            var match = mapper.Map<MatchDTO, Match>(newMatch);
+            await matchService.AddMatchAsync(match);
+            return Created();
+        }
+        return BadRequest(ModelState);
+    }
+
+    [HttpDelete("{id}")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> DeleteMatch(int id)
+    {
+        var result = await matchService.DeleteMatchAsync(id);
+        if(result)
+            return NoContent();
+        return NotFound("Match not found");
+    }
+
+    [HttpPut]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> PutMatch(MatchDTO updatedMatch)
+    {
+        if (ModelState.IsValid)
+        {
+            var match = mapper.Map<MatchDTO, Match>(updatedMatch);
+            matchService.UpdateMatch(match);
+            var matchToReturn = mapper.Map<Match, MatchToReturnDTO>(match);
+            return Ok(matchToReturn);
+        }
+        return BadRequest(ModelState);
     }
 }
